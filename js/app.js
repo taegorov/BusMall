@@ -1,19 +1,23 @@
 'use strict'
 
 // Global variables
-const productImageSectionTag = document.getElementById('product-pics');
+const productSectionTag = document.getElementById('product-pics');
 
-const imageOneTag = document.getElementById('product-one-img');
-const imageTwoTag = document.getElementById('product-two-img');
-const imageOneTag = document.getElementById('product-three-img');
+const productOneImageTag = document.getElementById('product-one-img');
+const productTwoImageTag = document.getElementById('product-two-img');
+const productThreeImageTag = document.getElementById('product-three-img');
 
-const leftGoatHeaderTag = document.getElementById('left-goat-h2');
-const rightGoatHeaderTag = document.getElementById('right-goat-h2');
+const productOneHeaderTag = document.getElementById('product-one-header');
+const productTwoHeaderTag = document.getElementById('product-two-header');
+const productThreeHeaderTag = document.getElementById('product-three-header');
 
+const maxClicks = 5;
+let totalClicks = 0;
 
-let imageOne = null;
-let imageTwo = null;
-let imageThree = null;
+let productOne = null;
+let productTwo = null;
+let productThree = null;
+
 
 const Product = function (productName, imageSrc) {
     this.productName = productName;
@@ -24,30 +28,76 @@ const Product = function (productName, imageSrc) {
     Product.all.push(this);
 }
 
+Product.all = [];
+
 
 function pickNewProduct() {
     shuffle(Product.all);
-    imageOne = Product.all[0];
-    imageTwo = Product.all[1];
-    imageThree = Product.all[2];
+    productOne = Product.all[0];
+    productTwo = Product.all[1];
+    productThree = Product.all[2];
   
     renderNewProduct();
   }
 
 const renderNewProduct = function () {
 
-    leftGoatImageTag.src = leftGoatOnThePage.url;
-    leftGoatImageTag.alt = leftGoatOnThePage.title;
-    leftGoatHeaderTag.textContent = leftGoatOnThePage.title;
+    productOneImageTag.src = productOne.url;
+    productOneImageTag.alt = productOne.title;
+    productOneHeaderTag.textContent = productOne.title;
   
-    rightGoatImageTag.src = rightGoatOnThePage.url;
-    rightGoatImageTag.alt = rightGoatOnThePage.title;
-    rightGoatHeaderTag.textContent = rightGoatOnThePage.title;
-  };
-  
-  const handleClickOnGoat = function (event) {
-  
+    productTwoImageTag.src = productTwo.url;
+    productTwoImageTag.alt = productTwo.title;
+    productTwoHeaderTag.textContent = productTwo.title;
 
+    productThreeImageTag.src = productThree.url;
+    productThreeImageTag.alt = productThree.title;
+    productThreeHeaderTag.textContent = productThree.title;
+  };
+
+const handleClickOnProduct = function (event) {
+    if (totalClicks < maxClicks) {
+        const itemClickedOn = event.target;
+        const id = itemClickedOn.id;
+
+        if (id === 'left-goat-img' || id === 'right-goat-img') {
+
+            if (id === 'product-one-img') {
+                productOne.clicks += 1;
+            } else if (id === 'product-two-img'){
+                productTwo.clicks += 1;
+            } else if (id === 'product-three-img')
+                productThree.clicks += 1;
+            }
+      
+            productOne.timesShown += 1;
+            productTwo.timesShown += 1;
+            productThree.timesShown += 1;
+            pickNewProduct();
+        }
+        totalClicks += 1;
+
+        if (totalClicks === maxClicks) {
+            productSectionTag.removeEventListener('click', handleClickOnProduct);
+            // console.log('5 products picked, all done!');
+            alert('5 products picked, all done!');
+        
+            //display the clicks to the page
+            renderLikes();
+
+    }
+}
+
+function renderLikes() {
+    const likesListElem = document.getElementById('product-clicks');
+    likesListElem.innerHTML = '';
+    for (let i = 0; i < Product.all.length; i+= 1) {
+      const productPicture = Product.all[i];
+      const productItemElem = document.createElement('li');
+      likesListElem.appendChild(productItemElem);
+      productItemElem.textContent = productPicture.title + ' : ' + productPicture.clicks;
+    }
+  }
 
 
 /* fisher yates  shuffle
@@ -62,8 +112,8 @@ function shuffle(array) {
     }
   }
 
-
-
+// Event Listener
+productImageSectionTag.addEventListener('click', handleClickOnProduct);
 
 
 
@@ -88,3 +138,4 @@ new Product('USB Tentacle', './img/usb.gif');
 new Product('Watering Can', './img/water-can.jpg');
 new Product('Wine Glass', './img/wine-glass.jpg');
 
+pickNewProduct();
