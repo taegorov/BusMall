@@ -7,15 +7,35 @@
 
 <body>
     <header>
+        <link rel="stylesheet" href="css/style.css">
         <h1>Hello World</h1>
     </header>
-    <main>
+    <main class="clearfix">
+        <!-- clearfix taken from Code Fellows lab11 -->
+        <aside id="product-likes">
+          <h2>Product Likes</h2>
+          <ul id="product-clicks">
+            <!-- <li>R2D2 Luggage : 0</li>
+            <li>Banana Slicer : 0</li>
+            <li>Bathroom Tablet Stand : 0</li>
+            <li>Boot Sandles : 0</li>
+            <li>Breakfast Machine : 0</li>
+            <li>Meatball Gum : 0</li>
+            <li>Terrible Chair : 0</li> -->
+          </ul>
+        </aside>
         <section id="all-products">
             <h1>Please Pick a Product You Like</h1>
             <div id="product-pics">
-                <figure id="product-one-img"></figure>
-                <figure id="product-two-img"></figure>
-                <figure id="product-three-img"></figure>
+                <figure id="product-one-img">
+                    <figcaption id="product-one-img"></figcaption>
+                </figure>
+                <figure id="product-two-img">
+                    <figcaption id="product-two-img"></figcaption>
+                </figure>
+                <figure id="product-three-img">
+                    <figcaption id="product-three-img"></figcaption>
+                </figure>
                 
             </div>
         </section>
@@ -23,6 +43,7 @@
     <footer>
 
     </footer>
+    <script src="js/app.js"></script>
 </body>
 
 </html>
