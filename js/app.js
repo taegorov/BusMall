@@ -11,6 +11,7 @@ const productOneHeaderTag = document.getElementById('product-one-header');
 const productTwoHeaderTag = document.getElementById('product-two-header');
 const productThreeHeaderTag = document.getElementById('product-three-header');
 
+
 // Establishes MAX NUMBER of products to click, starts total clicks at 0
 const maxClicks = 25;
 let totalClicks = 0;
@@ -44,16 +45,16 @@ function pickNewProduct() {
 const renderNewProduct = function () {
 
     productOneImageTag.src = productOne.url;
-    productOneImageTag.alt = productOne.title;
-    productOneHeaderTag.textContent = productOne.title;
+    productOneImageTag.alt = productOne.productName;
+    productOneHeaderTag.textContent = productOne.productName;
   
     productTwoImageTag.src = productTwo.url;
-    productTwoImageTag.alt = productTwo.title;
-    productTwoHeaderTag.textContent = productTwo.title;
+    productTwoImageTag.alt = productTwo.productName;
+    productTwoHeaderTag.textContent = productTwo.productName;
 
     productThreeImageTag.src = productThree.url;
-    productThreeImageTag.alt = productThree.title;
-    productThreeHeaderTag.textContent = productThree.title;
+    productThreeImageTag.alt = productThree.productName;
+    productThreeHeaderTag.textContent = productThree.productName;
   };
 
 const handleClickOnProduct = function (event) {
