@@ -11,8 +11,8 @@ const productOneHeaderTag = document.getElementById('product-one-header');
 const productTwoHeaderTag = document.getElementById('product-two-header');
 const productThreeHeaderTag = document.getElementById('product-three-header');
 
-// Establishes max number of products to click, starts total clicks at 0
-const maxClicks = 5;
+// Establishes MAX NUMBER of products to click, starts total clicks at 0
+const maxClicks = 25;
 let totalClicks = 0;
 
 
@@ -20,7 +20,7 @@ let productOne = null;
 let productTwo = null;
 let productThree = null;
 
-// add totalClicks to arguments?
+// Constructor function
 const Product = function (productName, imageSrc) {
     this.productName = productName;
     this.clicks = 0;
@@ -69,8 +69,9 @@ const handleClickOnProduct = function (event) {
                 productTwo.clicks += 1;
             } else if (id === 'product-three-img')
                 productThree.clicks += 1;
-    }
-      
+        }
+
+            // adds +1 to total times the image/product is shown
             productOne.timesShown += 1;
             productTwo.timesShown += 1;
             productThree.timesShown += 1;
@@ -83,10 +84,9 @@ const handleClickOnProduct = function (event) {
         // remove click function when maxClicks is reached
         if (totalClicks === maxClicks) {
             productSectionTag.removeEventListener('click', handleClickOnProduct);
-            // console.log('5 products picked, all done!');
-            alert('5 products picked, all done!');
+            alert('25 products liked, thanks for participating!');
         
-            //display likes to page
+            //display likes to page after hitting maxClicks
             renderLikes();
 
         }
@@ -99,7 +99,9 @@ function renderLikes() {
       const productPicture = Product.all[i];
       const productItemElem = document.createElement('li');
       likesListElem.appendChild(productItemElem);
-      productItemElem.textContent = productPicture.productName + ' : ' + productPicture.clicks;
+
+      // X had Y votes, and was seen Z times.
+      productItemElem.textContent = productPicture.productName + ' had ' + productPicture.clicks + ' votes, and was seen ' + productPicture.timesShown + ' times.';
     }
 }
 
@@ -145,3 +147,13 @@ new Product('Wine Glass', 'img/wine-glass.jpg');
 pickNewProduct();
 
 console.log ('total clicks are: ', totalClicks);
+
+// View results button
+function viewResults() {
+    let x = document.getElementById("product-clicks");
+    if (x.style.display === 'block') {
+        x.style.display = 'none';
+    } else {
+        x.style.display = 'block';
+    }
+}
