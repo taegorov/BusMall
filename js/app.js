@@ -59,7 +59,7 @@ function pickNewProduct() {
             productTwo = product;
         }
     }
-    
+
     // ensures next product shown is not the same as previous product, or same as productOne or productTwo
     for (let product of Product.all) {
         if (product !== previousProductOne && product !== previousProductTwo && product !== previousProductThree && product !== productOne && product !== productTwo) {
@@ -117,6 +117,7 @@ const handleClickOnProduct = function (event) {
 
         //display likes to page after hitting maxClicks
         renderLikes();
+        createChart();
 
     }
 }
@@ -187,21 +188,53 @@ function viewResults() {
     }
 }
 
+/////////////////////////////
+///// ChartJS goes here /////
+////////////////////////////
 
-// ChartJS 
+// Chart created with the assistance of Code Fellows instructor JB Tellez
+
+function createChart(){
 
 const productNamesArray = [];
 const productLikesArray = [];
 
 
 // build arrays
-for (let i = 0; i < Product.all.length; i++) {
-    const singleProductName = Product.all[i].name;
+for (let i = 0; i < Product.all.length; i+=1) {
+    const singleProductName = Product.all[i].productName;
     productNamesArray.push(singleProductName);
-  }
+}
 
-  for (let i = 0; i < Product.all.length; i++) {
+for (let i = 0; i < Product.all.length; i+=1) {
     const singleProductLikes = Product.all[i].clicks;
     productLikesArray.push(singleProductLikes);
-  }
+}
 
+
+const ctx = document.getElementById('productChart').getContext('2d');
+const productChart = new Chart(ctx, {
+    // Chart types here:
+    type: 'bar',
+    data: {
+        labels: productNamesArray,
+        datasets: [{
+          label: 'Nubmer of Likes per Product',
+          backgroundColor: 'rgb(0, 102, 255)',
+          borderColor: 'rgb(51, 153, 102)',
+          data: productLikesArray
+        }]
+      },
+
+      // Options here
+      options: {
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: true
+            }
+          }]
+        }
+      }
+    });
+}
