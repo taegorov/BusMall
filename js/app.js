@@ -124,7 +124,7 @@ productSectionTag.addEventListener('click', handleClickOnProduct);
 
 
 // Instantiates Product Objects
-new Product('R2D2 Luggage', '../img/bag.jpg');
+new Product('R2D2 Luggage', 'img/bag.jpg');
 new Product('Banana Slicer', 'img/banana.jpg');
 new Product('Bathroom Tablet Stand', 'img/bathroom.jpg');
 new Product('Boot Sandles', 'img/boots.jpg');
