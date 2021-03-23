@@ -22,3 +22,7 @@ h1 {
     width: 300px;
     border-style: solid;
 }
+
+#product-clicks {
+    display: none;
+}
