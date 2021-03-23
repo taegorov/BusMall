@@ -11,14 +11,16 @@ const productOneHeaderTag = document.getElementById('product-one-header');
 const productTwoHeaderTag = document.getElementById('product-two-header');
 const productThreeHeaderTag = document.getElementById('product-three-header');
 
+// Establishes max number of products to click, starts total clicks at 0
 const maxClicks = 5;
 let totalClicks = 0;
+
 
 let productOne = null;
 let productTwo = null;
 let productThree = null;
 
-
+// add totalClicks to arguments?
 const Product = function (productName, imageSrc) {
     this.productName = productName;
     this.clicks = 0;
@@ -30,7 +32,6 @@ const Product = function (productName, imageSrc) {
 
 Product.all = [];
 
-
 function pickNewProduct() {
     shuffle(Product.all);
     productOne = Product.all[0];
@@ -38,7 +39,7 @@ function pickNewProduct() {
     productThree = Product.all[2];
   
     renderNewProduct();
-  }
+}
 
 const renderNewProduct = function () {
 
@@ -60,7 +61,7 @@ const handleClickOnProduct = function (event) {
         const itemClickedOn = event.target;
         const id = itemClickedOn.id;
 
-        if (id === 'left-goat-img' || id === 'right-goat-img') {
+        if (id === 'product-one-img' || id === 'product-two-img' || id === 'product-three-img') {
 
             if (id === 'product-one-img') {
                 productOne.clicks += 1;
@@ -68,24 +69,27 @@ const handleClickOnProduct = function (event) {
                 productTwo.clicks += 1;
             } else if (id === 'product-three-img')
                 productThree.clicks += 1;
-            }
+    }
       
             productOne.timesShown += 1;
             productTwo.timesShown += 1;
             productThree.timesShown += 1;
+
             pickNewProduct();
-        }
+}
+        // +1 to number of totalClicks
         totalClicks += 1;
 
+        // remove click function when maxClicks is reached
         if (totalClicks === maxClicks) {
             productSectionTag.removeEventListener('click', handleClickOnProduct);
             // console.log('5 products picked, all done!');
             alert('5 products picked, all done!');
         
-            //display the clicks to the page
+            //display likes to page
             renderLikes();
 
-    }
+        }
 }
 
 function renderLikes() {
@@ -95,14 +99,13 @@ function renderLikes() {
       const productPicture = Product.all[i];
       const productItemElem = document.createElement('li');
       likesListElem.appendChild(productItemElem);
-      productItemElem.textContent = productPicture.title + ' : ' + productPicture.clicks;
+      productItemElem.textContent = productPicture.productName + ' : ' + productPicture.clicks;
     }
-  }
+}
 
 
-/* fisher yates  shuffle
-https://medium.com/@nitinpatel_20236/how-to-shuffle-correctly-shuffle-an-array-in-javascript-15ea3f84bfb
-*/
+// fisher yates  shuffle https://medium.com/@nitinpatel_20236/how-to-shuffle-correctly-shuffle-an-array-in-javascript-15ea3f84bfb
+
 function shuffle(array) {
     for (let i = array.length - 1; i > 0; i-=1) {
       const j = Math.floor(Math.random() * i)
@@ -110,32 +113,35 @@ function shuffle(array) {
       array[i] = array[j]
       array[j] = temp
     }
-  }
+}
 
 // Event Listener
-productImageSectionTag.addEventListener('click', handleClickOnProduct);
+productSectionTag.addEventListener('click', handleClickOnProduct);
 
 
 
 // Instantiates Product Objects
-new Product('Bag', './img/bag.jpg');
-new Product('Banana', './img/banana.jpg');
-new Product('Bathroom', './img/bathroom.jpg');
-new Product('Boots', './img/boots.jpg');
-new Product('Breakfast', './img/breakfast.jpg');
-new Product('Bubblegum', './img/bubblegum.jpg');
-new Product('Chair', './img/chair.jpg');
-new Product('Cthulhu', './img/cthulhu.jpg');
-new Product('Dog-Duck', './img/dog-duck.jpg');
-new Product('Dragon', './img/dragon.jpg');
-new Product('Pen', './img/pen.jpg');
-new Product('Pet Sweeper', './img/pet-sweep.jpg');
-new Product('Pizza Scissors', './img/scissors.jpg');
-new Product('Shark', './img/shark.jpg');
-new Product('Baby Sweeper', './img/sweep.png');
-new Product('Tauntaun', './img/tauntaun.jpg');
-new Product('USB Tentacle', './img/usb.gif');
-new Product('Watering Can', './img/water-can.jpg');
-new Product('Wine Glass', './img/wine-glass.jpg');
+new Product('R2D2 Luggage', '../img/bag.jpg');
+new Product('Banana Slicer', 'img/banana.jpg');
+new Product('Bathroom Tablet Stand', 'img/bathroom.jpg');
+new Product('Boot Sandles', 'img/boots.jpg');
+new Product('Breakfast Machine', 'img/breakfast.jpg');
+new Product('Meatball Gum', 'img/bubblegum.jpg');
+new Product('Terrible Chair', 'img/chair.jpg');
+new Product('Cthulhu Figure', 'img/cthulhu.jpg');
+new Product('Dog Duckface', 'img/dog-duck.jpg');
+new Product('Dragon', 'img/dragon.jpg');
+new Product('Pen Utensils', 'img/pen.jpg');
+new Product('Pet Sweeper', 'img/pet-sweep.jpg');
+new Product('Pizza Scissors', 'img/scissors.jpg');
+new Product('Shark Sleeping Bag', 'img/shark.jpg');
+new Product('Baby Sweeper', 'img/sweep.png');
+new Product('Tauntaun', 'img/tauntaun.jpg');
+new Product('Unicorn', 'img/unicorn.jpg');
+new Product('USB Tentacle', 'img/usb.gif');
+new Product('Useless Watering Can', 'img/water-can.jpg');
+new Product('Wine Glass', 'img/wine-glass.jpg');
 
 pickNewProduct();
+
+console.log ('total clicks are: ', totalClicks);
