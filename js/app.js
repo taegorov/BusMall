@@ -86,6 +86,33 @@ const renderNewProduct = function () {
     productThreeHeaderTag.textContent = productThree.productName;
 };
 
+
+// Getting items out of storage
+function getLikes() {
+    // getItems method
+        let likes = localStorage.getItem('likes')
+    // parse
+        if (likes !== null){
+            let parsedLikes = JSON.parse(likes);
+            return  parsedLikes;
+        }else{
+            return null;
+        }
+}
+
+// Setting items in storage
+function setNumberOfLikes() {
+    console.log(Product.all)
+    // stringify
+    let stringifiedProducts = JSON.stringify(Product.all)
+    console.log(stringifiedProducts)
+
+    // setItems method
+    localStorage.setItem('likes', stringifiedProducts);
+    
+}
+
+
 const handleClickOnProduct = function (event) {
     if (totalClicks < maxClicks) {
         const itemClickedOn = event.target;
@@ -108,6 +135,7 @@ const handleClickOnProduct = function (event) {
         // +1 to number of totalClicks
         totalClicks += 1;
         pickNewProduct();
+        setNumberOfLikes();
     }
 
     // remove click function when maxClicks is reached
@@ -147,11 +175,15 @@ function shuffle(array) {
     }
 }
 
+
 // Event Listener
 productSectionTag.addEventListener('click', handleClickOnProduct);
 
 
-
+let checkStorage = getLikes();
+if (checkStorage !== null) {
+    Product.all = checkStorage;
+} else {
 // Instantiates Product Objects
 new Product('R2D2 Luggage', 'img/bag.jpg');
 new Product('Banana Slicer', 'img/banana.jpg');
@@ -173,8 +205,10 @@ new Product('Unicorn', 'img/unicorn.jpg');
 new Product('USB Tentacle', 'img/usb.gif');
 new Product('Useless Watering Can', 'img/water-can.jpg');
 new Product('Wine Glass', 'img/wine-glass.jpg');
+}
 
 pickNewProduct();
+getLikes();
 
 console.log('total clicks are: ', totalClicks);
 
@@ -219,7 +253,7 @@ const productChart = new Chart(ctx, {
     data: {
         labels: productNamesArray,
         datasets: [{
-          label: 'Nubmer of Likes per Product',
+          label: 'Number of Likes per Product',
           backgroundColor: 'rgb(0, 102, 255)',
           borderColor: 'rgb(51, 153, 102)',
           data: productLikesArray
