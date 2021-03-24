@@ -1,5 +1,13 @@
 h1 {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: white;
+    background-color: black;
+    padding: 10px;
+}
+
+h2 {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: rgb(56, 61, 87);
 }
 
 #product-pics {
